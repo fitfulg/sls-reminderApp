@@ -21,7 +21,7 @@ const functions: AWS['functions'] = {
           arn: {
             'Fn::GetAtt': ['reminderTable', 'StreamArn'],
           },
-          filterPattern: [
+          filterPatterns: [
             {
               // we only want to send reminders when a reminder is removed
               eventName: ['REMOVE'],
