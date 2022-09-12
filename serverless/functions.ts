@@ -12,13 +12,21 @@ const functions: AWS['functions'] = {
       },
     ],
   },
-  getUrl: {
-    handler: 'src/functions/getUrl/index.handler',
+  sendReminder: {
+    handler: 'src/functions/sendReminder/index.handler',
     events: [
       {
-        httpApi: {
-          path: '/{code}',
-          method: 'get',
+        stream: {
+          type: 'dynamodb',
+          arn: {
+            'Fn::GetAtt': ['reminderTable', 'StreamArn'],
+          },
+          filterPattern: [
+            {
+              // we only want to send reminders when a reminder is removed
+              eventName: ['REMOVE'],
+            },
+          ],
         },
       },
     ],

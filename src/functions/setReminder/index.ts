@@ -19,10 +19,23 @@ export const handler = async (
     });
     if (validationErrors) return validationErrors;
 
-    const data = {};
+    const userId = email || phoneNumber;
+
+    const data = {
+      ...body,
+      id: uuid(),
+      TTL: reminderDate / 1000,
+      pk: userId,
+      sk: reminderDate.toString(),
+    };
     await dynamo.write(data, tableName);
     return formatJSONResponse({
-      data: {},
+      data: {
+        message: `Reminder is set for ${reminder} on ${new Date(
+          reminderDate,
+        ).toDateString()}, you will be notified via ${email ? 'email' : 'sms'}`,
+        id: data.id,
+      },
     });
   } catch (error) {
     console.log(error);
