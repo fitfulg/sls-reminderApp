@@ -37,7 +37,7 @@ export const sendEmail = async ({
         Data: 'Your Reminder',
       },
     },
-    Source: 'ercardona@edrans.com',
+    Source: 'email@gmail.com',//todo process env
   };
   const command = new SendEmailCommand(params);
   const res = await sesClient.send(command);
