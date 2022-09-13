@@ -99,3 +99,4 @@ export const validateInputs = ({
 
   return;
 };
+// TODO: create interfase inputs and clean ifs 
