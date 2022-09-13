@@ -1,3 +1,4 @@
+//TODO: IApiGatewayParams
 export const formatJSONResponse = ({
   statusCode = 200,
   data = {},
