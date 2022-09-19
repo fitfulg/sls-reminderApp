@@ -30,6 +30,15 @@ const functions: AWS['functions'] = {
         },
       },
     ],
+    //custom role for this function
+    //@ts-expect-error
+    iamRoleStatements: [
+      {
+        Effect: 'Allow',
+        Action: ['ses:sendEmail', 'sns:Publish'],
+        Resource: '*',
+      },
+    ],
   },
 };
 
