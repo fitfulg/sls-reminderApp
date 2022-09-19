@@ -1,12 +1,15 @@
 import type { AWS } from '@serverless/typescript';
-
 import functions from './serverless/functions';
 import dynamoResources from './serverless/dynamoResources';
 
 const serverlessConfiguration: AWS = {
   service: 'reminderApp',
   frameworkVersion: '3',
-  plugins: ['serverless-esbuild', 'serverless-iam-roles-per-function'],
+  plugins: [
+    'serverless-esbuild',
+    'serverless-iam-roles-per-function',
+    'serverless-dotenv-plugin',
+  ],
   provider: {
     name: 'aws',
     runtime: 'nodejs14.x',

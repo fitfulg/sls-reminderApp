@@ -37,7 +37,7 @@ export const sendEmail = async ({
         Data: 'Your Reminder',
       },
     },
-    Source: 'email@gmail.com',//todo process env
+    Source: process.env.VERIFIED_EMAIL,
   };
   const command = new SendEmailCommand(params);
   const res = await sesClient.send(command);
@@ -99,4 +99,4 @@ export const validateInputs = ({
 
   return;
 };
-// TODO: create interfase inputs and clean ifs 
+// TODO: create interfase inputs and clean ifs
