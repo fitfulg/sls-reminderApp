@@ -9,6 +9,7 @@ import {
   PublishCommandInput,
 } from '@aws-sdk/client-sns';
 import { formatJSONResponse } from '@libs/apiGateway';
+import { Inputs } from 'src/types';
 
 const sesClient = new SESClient({});
 const snsClient = new SNSClient({});
@@ -66,37 +67,30 @@ export const validateInputs = ({
   phoneNumber,
   reminder,
   reminderDate,
-}: {
-  email?: string;
-  phoneNumber?: string;
-  reminder: string;
-  reminderDate: number;
-}) => {
-  if (!email && !phoneNumber) {
+}: Inputs) => {
+  const cases = [
+    {
+      condition: !email && !phoneNumber,
+      message: 'You must provide either an email or a phone number',
+    },
+    {
+      condition: !reminderDate,
+      message: 'Reminder date required to create a reminder',
+    },
+    {
+      condition: !reminder,
+      message: 'You must provide a reminder',
+    },
+  ];
+  const messages = cases
+    .filter((caseItem) => caseItem.condition)
+    .map((caseItem) => caseItem.message);
+  if (messages.length) {
     return formatJSONResponse({
       statusCode: 400,
       data: {
-        message: 'Email or phone number is required',
+        message: messages.join(),
       },
     });
   }
-  if (!reminder) {
-    return formatJSONResponse({
-      statusCode: 400,
-      data: {
-        message: 'Reminder required to create a reminder',
-      },
-    });
-  }
-  if (!reminderDate) {
-    return formatJSONResponse({
-      statusCode: 400,
-      data: {
-        message: 'ReminderDate required to create a reminder',
-      },
-    });
-  }
-
-  return;
 };
-// TODO: create interfase inputs and clean ifs

@@ -18,8 +18,10 @@ const serverlessConfiguration: AWS = {
       {
         Effect: 'Allow',
         Action: 'dynamodb:*',
-        Resource:
+        Resource: [
           'arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.reminderTable}',
+          'arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.reminderTable}/index/index1',
+        ],
       },
     ],
     apiGateway: {

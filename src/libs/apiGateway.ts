@@ -1,13 +1,10 @@
-//TODO: IApiGatewayParams
+import { AGWInput } from 'src/types';
+
 export const formatJSONResponse = ({
   statusCode = 200,
   data = {},
   headers,
-}: {
-  statusCode?: number;
-  data?: any;
-  headers?: Record<string, string>;
-}) => {
+}: AGWInput) => {
   return {
     statusCode,
     body: JSON.stringify(data),

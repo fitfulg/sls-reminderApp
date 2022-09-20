@@ -12,6 +12,17 @@ const functions: AWS['functions'] = {
       },
     ],
   },
+  getReminders: {
+    handler: 'src/functions/getReminders/index.handler',
+    events: [
+      {
+        httpApi: {
+          path: '/{userId}',
+          method: 'get',
+        },
+      },
+    ],
+  },
   sendReminder: {
     handler: 'src/functions/sendReminder/index.handler',
     events: [
