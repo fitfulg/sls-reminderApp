@@ -35,6 +35,7 @@ const dynamoResources: AWS['resources']['Resources'] = {
         AttributeName: 'TTL',
         Enabled: true,
       },
+
       GlobalSecondaryIndexes: [
         {
           IndexName: 'index1',
@@ -48,6 +49,9 @@ const dynamoResources: AWS['resources']['Resources'] = {
               KeyType: 'RANGE',
             },
           ],
+          Projection: {
+            ProjectionType: 'ALL',
+          },
         },
       ],
     },
